@@ -1,5 +1,5 @@
 import React from "react";
-import { getStressLevelColors } from "../helpers/Stress/getStressLevelColors";
+import { getStressLevelColors } from "../../../helpers/Stress/getStressLevelColors";
 
 function Calender({ stressLevel, index }) {
   // only return a filled calender if stress is greater than 3

@@ -1,5 +1,5 @@
 import Calender from "./Calender";
-import { mockStressLevelOfDays } from "../mocks/mockStressLevels";
+import { mockStressLevelOfDays } from "../../../mocks/mockStressLevels";
 import { Container, Flex, Text } from "@chakra-ui/react";
 
 const CalenderStress = () => {
