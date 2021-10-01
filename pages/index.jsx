@@ -1,17 +1,4 @@
-import {
-  Flex,
-  Container,
-  Grid,
-  GridItem,
-  Text,
-  VStack,
-  Button,
-  Stat,
-  StatHelpText,
-  StatNumber,
-  StatArrow,
-  StatLabel,
-} from "@chakra-ui/react";
+import { Flex, Grid, GridItem } from "@chakra-ui/react";
 import CalenderStress from "../components/insights/calender/CalenderStress";
 import DashBoardGreeting from "../components/dashBoardGreeting/DashBoardGreeting";
 import InsightsHeader from "../components/insights/InsightsHeader";
@@ -19,6 +6,8 @@ import Navbar from "../components/navbar/NavBar";
 import StressScoreButton from "../components/stressScores/StressScoreButton";
 import WeeklyStress from "../components/stressScores/WeeklyStress";
 import MonthlyStress from "../components/stressScores/MonthlyStress";
+import Calender from "../components/insights/calender/Calender";
+import CalenderText from "../components/insights/calender/CalenderText";
 
 const Home = ({}) => {
   return (
@@ -31,6 +20,7 @@ const Home = ({}) => {
       <GridItem rowSpan={20} colSpan={2} bg="#F7F9FA" shadow="xl">
         <Navbar />
       </GridItem>
+
       <GridItem
         borderRadius="13px"
         rowSpan={3}
@@ -40,6 +30,7 @@ const Home = ({}) => {
       >
         <DashBoardGreeting />
       </GridItem>
+
       <GridItem
         as={Flex}
         borderRadius="13px"
@@ -50,6 +41,7 @@ const Home = ({}) => {
       >
         <InsightsHeader />
       </GridItem>
+
       <GridItem
         shadow="xl"
         borderRadius="13px"
@@ -65,9 +57,9 @@ const Home = ({}) => {
           <WeeklyStress />
           <MonthlyStress />
         </Flex>
-
         <StressScoreButton />
       </GridItem>
+
       <GridItem
         shadow="xl"
         borderRadius="13px"
@@ -76,7 +68,14 @@ const Home = ({}) => {
         gridColumnStart={18}
         gridColumnEnd={25}
         bg="#F7F9FA"
-      />
+        as={Flex}
+        flexDir="column"
+        justifyContent="space-evenly"
+      >
+        <CalenderStress />
+        <CalenderText />
+      </GridItem>
+
       <GridItem
         shadow="xl"
         borderRadius="13px"

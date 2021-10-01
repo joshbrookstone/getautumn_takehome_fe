@@ -6,21 +6,13 @@ const CalenderStress = () => {
   return (
     <Container
       flexDir="row"
-      justifyContent="space-evenly"
+      justifyContent="center"
       as={Flex}
-      backgroundColor="#FFF7E7"
       maxW="container.sm"
     >
-      <Text>Hello</Text>
-      <Text>Hello</Text>
-      <Text>Hello</Text>
-      <Text>Hello</Text>
-
-      {/* <div>
-        {mockStressLevelOfDays.map((stressLevel, index) => {
-          return <Calender stressLevel={stressLevel} index={index}></Calender>;
-        })}
-      </div> */}
+      {mockStressLevelOfDays.map((stressLevel, index) => {
+        return <Calender stressLevel={stressLevel} index={index}></Calender>;
+      })}
     </Container>
   );
 };

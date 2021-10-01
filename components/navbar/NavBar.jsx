@@ -1,10 +1,9 @@
-import { Flex, Image } from "@chakra-ui/react";
+import { Flex, Image, Icon } from "@chakra-ui/react";
 import { Image as NextImage } from "next/image";
 import { AiFillHome, AiOutlineLock } from "react-icons/ai";
 import { CgStack } from "react-icons/cg";
 import { FaRegBuilding, FaRegHandshake } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
-import { Icon } from "@chakra-ui/react";
 
 const Navbar = (props) => {
   return (
