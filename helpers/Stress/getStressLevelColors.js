@@ -2,8 +2,7 @@ import { getBiggestStressDayofWeek } from "./getBiggestStressDayofWeek";
 import { getLowestStressDayOfWeek } from "./getLowestStressDayOfWeek";
 
 export const getStressLevelColors = (stressLevel, index) => {
-  addIndexToStressLevel();
-
+  // addIndexToStressLevel();
   // if (stressNumber === 3) {
   //   return "rgb(186, 200, 182)";
   // }

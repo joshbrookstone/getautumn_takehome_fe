@@ -4,12 +4,23 @@ import { Container, Flex, Text } from "@chakra-ui/react";
 
 const CalenderStress = () => {
   return (
-    <Container maxW="container.lg" backgroundColor="whiteAlpha.100">
-      <div className="  flex  justify-center items-center text-center mb-2">
+    <Container
+      flexDir="row"
+      justifyContent="space-evenly"
+      as={Flex}
+      backgroundColor="#FFF7E7"
+      maxW="container.sm"
+    >
+      <Text>Hello</Text>
+      <Text>Hello</Text>
+      <Text>Hello</Text>
+      <Text>Hello</Text>
+
+      {/* <div>
         {mockStressLevelOfDays.map((stressLevel, index) => {
           return <Calender stressLevel={stressLevel} index={index}></Calender>;
         })}
-      </div>
+      </div> */}
     </Container>
   );
 };
