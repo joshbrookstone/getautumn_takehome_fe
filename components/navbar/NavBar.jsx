@@ -3,7 +3,7 @@ import { Image as NextImage } from "next/image";
 import { AiFillHome, AiOutlineLock } from "react-icons/ai";
 import { CgStack } from "react-icons/cg";
 import { FaRegBuilding, FaRegHandshake } from "react-icons/fa";
-import { IoLogOutOutline } from "react-icons/io";
+import { IoIosLogOut } from "react-icons/io";
 import { Icon } from "@chakra-ui/react";
 
 const Navbar = (props) => {
@@ -34,7 +34,7 @@ const Navbar = (props) => {
       <Icon as={AiOutlineLock} w={10} h={9} color="#323232" />
 
       <Flex marginTop="80%" marginBottom="110%">
-        <Icon as={IoLogOutOutline} w={8} h={8} color="#323232" />
+        <Icon as={IoIosLogOut} w={10} h={9} color="#323232" />
       </Flex>
     </Flex>
   );

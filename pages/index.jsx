@@ -1,5 +1,7 @@
-import { Flex, Container, Grid, GridItem } from "@chakra-ui/react";
+import { Flex, Container, Grid, GridItem, Text } from "@chakra-ui/react";
 import CalenderStress from "../components/CalenderStress";
+import DashBoardGreeting from "../components/dashBoardGreeting/DashBoardGreeting";
+import InsightsHeader from "../components/insights/InsightsHeader";
 import Navbar from "../components/navbar/NavBar";
 
 const Home = ({}) => {
@@ -15,7 +17,7 @@ const Home = ({}) => {
       height="100vh"
       templateRows="repeat(20, 1fr)"
       templateColumns="repeat(31, 1fr)"
-      gap={4}
+      gap={10}
     >
       <GridItem rowSpan={20} colSpan={2} bg="#F7F9FA">
         <Navbar />
@@ -24,8 +26,21 @@ const Home = ({}) => {
         borderRadius="13px"
         rowSpan={3}
         gridColumnStart={3}
-        colSpan={31}
-      />
+        colSpan={15}
+        marginBottom="-10"
+      >
+        <DashBoardGreeting />
+      </GridItem>
+      <GridItem
+        as={Flex}
+        borderRadius="13px"
+        rowSpan={3}
+        gridColumnStart={18}
+        colSpan={14}
+        marginBottom="-10"
+      >
+        <InsightsHeader />
+      </GridItem>
       <GridItem
         borderRadius="13px"
         gridRowStart={4}
