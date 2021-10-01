@@ -8,6 +8,9 @@ import WeeklyStress from "../components/stressScores/WeeklyStress";
 import MonthlyStress from "../components/stressScores/MonthlyStress";
 import Calender from "../components/insights/calender/Calender";
 import CalenderText from "../components/insights/calender/CalenderText";
+import Messages from "../components/insights/Messages";
+import Meetings from "../components/insights/Meetings";
+import DeepWork from "../components/insights/DeepWork";
 
 const Home = ({}) => {
   return (
@@ -84,7 +87,12 @@ const Home = ({}) => {
         gridColumnStart={18}
         gridColumnEnd={25}
         bg="#F7F9FA"
-      />
+        as={Flex}
+        justifyContent="center"
+      >
+        <Meetings />
+      </GridItem>
+
       <GridItem
         shadow="xl"
         borderRadius="13px"
@@ -93,7 +101,12 @@ const Home = ({}) => {
         gridColumnStart={25}
         gridColumnEnd={32}
         bg="#F7F9FA"
-      />
+        as={Flex}
+        justifyContent="center"
+      >
+        <Messages />
+      </GridItem>
+
       <GridItem
         shadow="xl"
         borderRadius="13px"
@@ -102,7 +115,12 @@ const Home = ({}) => {
         gridColumnStart={25}
         gridColumnEnd={32}
         bg="#F7F9FA"
-      />
+        bg="#F7F9FA"
+        as={Flex}
+        justifyContent="center"
+      >
+        <DeepWork />
+      </GridItem>
 
       <GridItem
         shadow="xl"
