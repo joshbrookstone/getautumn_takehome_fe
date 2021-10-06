@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Text, Select, Flex } from "@chakra-ui/react";
 
-function ChartHeader() {
+function ChartHeader(setChartState, twoWeeksOfStress) {
   return (
     <Box marginTop="1.5" as={Flex} w="100%" justifyContent="space-between">
       <Text flex="3" fontSize="2xl" fontWeight="black" textAlign="center">
@@ -24,10 +24,9 @@ function ChartHeader() {
         flex="2"
         fontSize="large"
         color="#159A6F"
-        placeholder="Two Weeks"
       >
-        <option value="option1">Two Weeks</option>
         <option value="option2">One Month</option>
+        <option value="option1">Two Weeks</option>
       </Select>
     </Box>
   );

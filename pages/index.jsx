@@ -1,4 +1,11 @@
-import { Flex, Grid, GridItem } from "@chakra-ui/react";
+import {
+  Flex,
+  Grid,
+  GridItem,
+  useControllableState,
+  Button,
+} from "@chakra-ui/react";
+
 import axios from "axios";
 import { motion } from "framer-motion";
 import Chart from "../components/chart/Chart";
@@ -46,6 +53,15 @@ const Home = ({
   lastWeekMessages,
   currentWeekMessages,
 }) => {
+  const _twoWeeksOfStressData = [...lastWeekStress, ...currentWeekStress];
+
+  const [chartState, setChartState] = useControllableState({
+    defaultValue: currentMonthStress,
+  });
+  console.log(setChartState);
+  console.log("current monthstress", currentMonthStress);
+  console.log("chartState", chartState);
+
   const MotionGridItem = motion(GridItem);
   const MotionGrid = motion(Grid);
   const container = {
@@ -61,6 +77,7 @@ const Home = ({
     hidden: { opacity: 0 },
     show: { opacity: 1 },
   };
+
   return (
     <MotionGrid
       variants={container}
@@ -233,9 +250,12 @@ const Home = ({
         flexDir="column"
         margin={-3}
       >
-        <ChartHeader />
+        <ChartHeader
+          setChartState={setChartState}
+          twoWeeksOfStress={_twoWeeksOfStressData}
+        />
 
-        <Chart data={currentMonthStress} />
+        <Chart data={chartState} />
       </MotionGridItem>
     </MotionGrid>
   );
