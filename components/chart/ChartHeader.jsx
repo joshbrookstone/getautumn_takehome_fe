@@ -24,10 +24,10 @@ function ChartHeader() {
         flex="2"
         fontSize="large"
         color="#159A6F"
-        placeholder="Individual"
+        placeholder="Two Weeks"
       >
-        <option value="option1">Individual</option>
-        <option value="option2">Group</option>
+        <option value="option1">Two Weeks</option>
+        <option value="option2">One Month</option>
       </Select>
     </Box>
   );

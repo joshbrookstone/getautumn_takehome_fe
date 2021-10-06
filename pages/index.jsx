@@ -1,7 +1,8 @@
 import { Flex, Grid, GridItem } from "@chakra-ui/react";
-
 import axios from "axios";
 import { motion } from "framer-motion";
+import Chart from "../components/chart/Chart";
+import ChartHeader from "../components/chart/ChartHeader";
 import {
   CalenderStress,
   CalenderText,
@@ -17,16 +18,17 @@ import {
 } from "../components/index";
 import {
   getCurrentMonthStress,
-  getLastMonthStress,
+  getCurrentWeekMeetings,
   getCurrentWeekStress,
-  getSingleUser,
+  getLastMonthStress,
+  getLastWeekMeetings,
   getLastWeekStress,
+  getSingleUser,
 } from "../Constants/ApiUrls";
 import { getLargestStressDayOfWeek } from "../helpers/Stress/getLargestStressDayofWeek";
 import { getLowestStressDayOfWeek } from "../helpers/Stress/getLowestStressDayOfWeek";
 import { getStressLevel } from "../helpers/Stress/getStressLevel";
-import Chart from "../components/chart/Chart";
-import ChartHeader from "../components/chart/ChartHeader";
+import { meetingsCurrentVsLast } from "../helpers/Meetings/meetingsCurrentVsLast";
 
 const Home = ({
   user,
@@ -34,6 +36,8 @@ const Home = ({
   lastWeekStress,
   lastMonthStress,
   currentMonthStress,
+  currentWeekMeetings,
+  lastWeekMeetings,
 }) => {
   const MotionGridItem = motion(GridItem);
   const MotionGrid = motion(Grid);
@@ -155,7 +159,15 @@ const Home = ({
         as={Flex}
         justifyContent="center"
       >
-        <Meetings />
+        <Meetings
+          howManyMeetings={currentWeekMeetings.length}
+          meetingsCurrentVsLast={() =>
+            meetingsCurrentVsLast({
+              currentWeekMeetings: currentWeekMeetings,
+              lastWeekMeetings: lastWeekMeetings,
+            })
+          }
+        />
       </MotionGridItem>
 
       <MotionGridItem
@@ -216,6 +228,8 @@ export async function getServerSideProps() {
   const fetchLastWeeksStress = axios.get(getLastWeekStress);
   const fetchLastMonthStress = axios.get(getLastMonthStress);
   const fetchCurrentMonthStress = axios.get(getCurrentMonthStress);
+  const fetchCurrentWeekMeetings = axios.get(getCurrentWeekMeetings);
+  const fetchLastWeekMeetings = axios.get(getLastWeekMeetings);
 
   const axiosResults = await axios.all([
     fetchUserData,
@@ -223,6 +237,8 @@ export async function getServerSideProps() {
     fetchLastWeeksStress,
     fetchLastMonthStress,
     fetchCurrentMonthStress,
+    fetchCurrentWeekMeetings,
+    fetchLastWeekMeetings,
   ]);
 
   const user = axiosResults[0].data;
@@ -235,6 +251,10 @@ export async function getServerSideProps() {
 
   const currentMonthStress = axiosResults[4].data;
 
+  const currentWeekMeetings = axiosResults[5].data;
+
+  const lastWeekMeetings = axiosResults[6].data;
+
   return {
     props: {
       user,
@@ -242,6 +262,8 @@ export async function getServerSideProps() {
       lastWeekStress,
       lastMonthStress,
       currentMonthStress,
+      currentWeekMeetings,
+      lastWeekMeetings,
     },
   };
 }

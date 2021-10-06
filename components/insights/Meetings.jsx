@@ -7,15 +7,23 @@ import {
   StatLabel,
   StatHelpText,
   StatArrow,
+  chakra,
 } from "@chakra-ui/react";
 
-function Meetings() {
+function Meetings({ howManyMeetings, meetingsCurrentVsLast }) {
+  const fewerOrMore = () => {
+    if (meetingsCurrentVsLast() < 0) {
+      return "fewer ";
+    } else {
+      return "more ";
+    }
+  };
   return (
     <VStack justifyContent="center" alignSelf="center">
       <Stat>
         <Flex alignItems="center" justifyContent="center">
           <StatNumber fontSize="3xl" color="#EB9A22">
-            4
+            {howManyMeetings}
           </StatNumber>
           <StatLabel
             fontWeight="bold"
@@ -36,13 +44,19 @@ function Meetings() {
           This week, you have this many meetings scheduled
         </StatLabel>
         <StatHelpText
-          color="#EB9A22"
+          color="#42464A"
           textAlign="center"
           // textAlignLast="center"
           justifyContent="center"
         >
-          <StatArrow type="decrease" color="#EB9A22" />2 fewer compared with
-          last week
+          <StatArrow
+            type={meetingsCurrentVsLast > 0 ? "increase" : "decrease"}
+            color="#EB9A22"
+          />
+          <chakra.span color="#EB9A22">
+            {Math.abs(meetingsCurrentVsLast())} {fewerOrMore()}
+          </chakra.span>
+          compared with last week
         </StatHelpText>
       </Stat>
     </VStack>
