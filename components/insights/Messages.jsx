@@ -10,7 +10,6 @@ import {
 } from "@chakra-ui/react";
 
 function Messages({ outOfWorkMessages, outOfWorkMessagesCurrentVsLast }) {
-  console.log(outOfWorkMessagesCurrentVsLast());
   return (
     <VStack justifyContent="center" alignSelf="center">
       <Stat>

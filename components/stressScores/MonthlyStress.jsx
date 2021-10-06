@@ -12,6 +12,7 @@ import {
 function MonthlyStress({ currentMonthStress, lastMonthStress }) {
   const stressChange = (currentMonthStress() - lastMonthStress()).toFixed(1);
   const isStressChangePositive = stressChange > 0;
+
   return (
     <VStack justifyContent="center" alignSelf="center">
       <Stat>

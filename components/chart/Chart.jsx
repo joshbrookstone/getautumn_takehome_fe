@@ -27,7 +27,6 @@ function Chart({ data }) {
           dataKey="stress"
           stroke="#129A6F"
         />
-        {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
       </LineChart>
     </Flex>
   );

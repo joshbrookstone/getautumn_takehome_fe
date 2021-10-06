@@ -209,7 +209,6 @@ const Home = ({
         gridColumnStart={25}
         gridColumnEnd={32}
         bg="#F7F9FA"
-        bg="#F7F9FA"
         as={Flex}
         justifyContent="center"
       >
@@ -243,45 +242,15 @@ const Home = ({
 };
 
 export async function getServerSideProps() {
-  const fetchUserData = axios.get(getSingleUser);
-  const fetchCurrentWeeksStress = axios.get(getCurrentWeekStress);
-  const fetchLastWeeksStress = axios.get(getLastWeekStress);
-  const fetchLastMonthStress = axios.get(getLastMonthStress);
-  const fetchCurrentMonthStress = axios.get(getCurrentMonthStress);
-  const fetchCurrentWeekMeetings = axios.get(getCurrentWeekMeetings);
-  const fetchLastWeekMeetings = axios.get(getLastWeekMeetings);
-  const fetchCurrentMessages = axios.get(getCurrentWeekMessages);
-  const fetchLastWeekMessages = axios.get(getLastWeekMessages);
-
-  const axiosResults = await axios.all([
-    fetchUserData,
-    fetchCurrentWeeksStress,
-    fetchLastWeeksStress,
-    fetchLastMonthStress,
-    fetchCurrentMonthStress,
-    fetchCurrentWeekMeetings,
-    fetchLastWeekMeetings,
-    fetchCurrentMessages,
-    fetchLastWeekMessages,
-  ]);
-
-  const user = axiosResults[0].data;
-
-  const currentWeekStress = axiosResults[1].data;
-
-  const lastWeekStress = axiosResults[2].data;
-
-  const lastMonthStress = axiosResults[3].data;
-
-  const currentMonthStress = axiosResults[4].data;
-
-  const currentWeekMeetings = axiosResults[5].data;
-
-  const lastWeekMeetings = axiosResults[6].data;
-
-  const currentWeekMessages = axiosResults[7].data;
-
-  const lastWeekMessages = axiosResults[8].data;
+  const user = (await axios.get(getSingleUser)).data;
+  const currentWeekStress = (await axios.get(getCurrentWeekStress)).data;
+  const lastWeekStress = (await axios.get(getLastWeekStress)).data;
+  const lastMonthStress = (await axios.get(getLastMonthStress)).data;
+  const currentMonthStress = (await axios.get(getCurrentMonthStress)).data;
+  const currentWeekMeetings = (await axios.get(getCurrentWeekMeetings)).data;
+  const lastWeekMeetings = (await axios.get(getLastWeekMeetings)).data;
+  const currentWeekMessages = (await axios.get(getCurrentWeekMessages)).data;
+  const lastWeekMessages = (await axios.get(getLastWeekMessages)).data;
 
   return {
     props: {

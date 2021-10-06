@@ -3,8 +3,6 @@ import { AiFillCalendar } from "react-icons/ai";
 import { Icon } from "@chakra-ui/react";
 
 function Calender({ lowestStressIndex, biggestStressIndex, dayIndex }) {
-  console.log(dayIndex);
-
   const fillColor = () => {
     if (dayIndex === lowestStressIndex) {
       return "#08553D";
@@ -20,7 +18,7 @@ function Calender({ lowestStressIndex, biggestStressIndex, dayIndex }) {
   return (
     <Icon
       fill={fillColor()}
-      marginX="0.5"
+      marginX="-1"
       as={AiFillCalendar}
       w={10}
       h={9}
