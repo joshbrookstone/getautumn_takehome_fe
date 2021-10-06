@@ -29,6 +29,8 @@ import { getLargestStressDayOfWeek } from "../helpers/Stress/getLargestStressDay
 import { getLowestStressDayOfWeek } from "../helpers/Stress/getLowestStressDayOfWeek";
 import { getStressLevel } from "../helpers/Stress/getStressLevel";
 import { meetingsCurrentVsLast } from "../helpers/Meetings/meetingsCurrentVsLast";
+import { howManyHoursOfDeepWork } from "../helpers/DeepWork/howManyHoursOfDeepWork";
+import { deepWorkCurrentVsLast } from "../helpers/DeepWork/deepWorkCurrentvsLast";
 
 const Home = ({
   user,
@@ -198,7 +200,12 @@ const Home = ({
         as={Flex}
         justifyContent="center"
       >
-        <DeepWork />
+        <DeepWork
+          deepWorkCurrentVsLast={() =>
+            deepWorkCurrentVsLast({ currentWeekMeetings, lastWeekMeetings })
+          }
+          thisWeekDeepHours={() => howManyHoursOfDeepWork(currentWeekMeetings)}
+        />
       </MotionGridItem>
 
       <MotionGridItem

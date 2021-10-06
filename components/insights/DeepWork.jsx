@@ -7,15 +7,16 @@ import {
   StatLabel,
   StatHelpText,
   StatArrow,
+  chakra,
 } from "@chakra-ui/react";
 
-function DeepWork() {
+function DeepWork({ thisWeekDeepHours, deepWorkCurrentVsLast }) {
   return (
     <VStack justifyContent="center" alignSelf="center">
       <Stat>
         <Flex alignItems="center" justifyContent="center">
           <StatNumber fontSize="3xl" color="#053A8D">
-            36
+            {thisWeekDeepHours()}
           </StatNumber>
           <StatLabel
             fontWeight="bold"
@@ -36,11 +37,21 @@ function DeepWork() {
           Out of your week, you have this many hours for deep work
         </StatLabel>
         <StatHelpText
-          color="#053A8D"
+          color="#42464A"
           textAlign="center"
           justifyContent="center"
         >
-          <StatArrow type="decrease" color="#053A8D" /> -3 hours since last week
+          <StatArrow
+            type={deepWorkCurrentVsLast() > 0 ? "increase" : "decrease"}
+            color="#053A8D"
+          />{" "}
+          <chakra.span color="#053A8D">
+            {deepWorkCurrentVsLast()}{" "}
+            {deepWorkCurrentVsLast() === 1 || deepWorkCurrentVsLast() === -1
+              ? "hour"
+              : "hours"}
+          </chakra.span>{" "}
+          since last week
         </StatHelpText>
       </Stat>
     </VStack>
