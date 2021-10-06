@@ -58,9 +58,6 @@ const Home = ({
   const [chartState, setChartState] = useControllableState({
     defaultValue: currentMonthStress,
   });
-  console.log(setChartState);
-  console.log("current monthstress", currentMonthStress);
-  console.log("chartState", chartState);
 
   const MotionGridItem = motion(GridItem);
   const MotionGrid = motion(Grid);
