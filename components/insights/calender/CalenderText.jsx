@@ -1,11 +1,15 @@
 import React from "react";
-import { Text } from "@chakra-ui/react";
+import { Text, Center, chakra } from "@chakra-ui/react";
 
-function CalenderText() {
+function CalenderText({ lowestStressDay, biggestStressDay }) {
   return (
-    <Text fontWeight="semibold" wordBreak="break-word" textAlign="center">
-      Your stress was the highest on Wednesday and lowest on Monday
-    </Text>
+    <Center wordBreak="break-word" maxWidth="350">
+      <chakra.span color="#42464A" fontWeight="semibold" textAlign="center">
+        Your stress was the highest on{" "}
+        <chakra.span color="#39A881"> {biggestStressDay()}</chakra.span> and
+        lowest on <chakra.span color="#08553D">{lowestStressDay()}</chakra.span>
+      </chakra.span>
+    </Center>
   );
 }
 

@@ -38,7 +38,7 @@ function Meetings() {
         <StatHelpText
           color="#EB9A22"
           textAlign="center"
-          textAlignLast="center"
+          // textAlignLast="center"
           justifyContent="center"
         >
           <StatArrow type="decrease" color="#EB9A22" />2 fewer compared with

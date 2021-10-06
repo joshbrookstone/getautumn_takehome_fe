@@ -1,12 +1,32 @@
 import React from "react";
-import { getStressLevelColors } from "../../../helpers/Stress/getStressLevelColors";
-import { GrCalendar } from "react-icons/gr";
+import { AiFillCalendar } from "react-icons/ai";
 import { Icon } from "@chakra-ui/react";
 
-function Calender({ stressLevel, index }) {
-  // only return a filled calender if stress is greater than 3
+function Calender({ lowestStressIndex, biggestStressIndex, dayIndex }) {
+  console.log(dayIndex);
 
-  return <Icon marginX="0.5" as={GrCalendar} w={10} h={9} color="#323232" />;
+  const fillColor = () => {
+    if (dayIndex === lowestStressIndex) {
+      return "#08553D";
+    }
+
+    if (dayIndex === biggestStressIndex) {
+      return "#39A881";
+    }
+
+    return "#525559";
+  };
+
+  return (
+    <Icon
+      fill={fillColor()}
+      marginX="0.5"
+      as={AiFillCalendar}
+      w={10}
+      h={9}
+      color="#323232"
+    />
+  );
 }
 
 export default Calender;

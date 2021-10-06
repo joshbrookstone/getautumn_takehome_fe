@@ -1,40 +1,82 @@
 import { Flex, Grid, GridItem } from "@chakra-ui/react";
-import CalenderStress from "../components/insights/calender/CalenderStress";
-import DashBoardGreeting from "../components/dashBoardGreeting/DashBoardGreeting";
-import InsightsHeader from "../components/insights/InsightsHeader";
-import Navbar from "../components/navbar/NavBar";
-import StressScoreButton from "../components/stressScores/StressScoreButton";
-import WeeklyStress from "../components/stressScores/WeeklyStress";
-import MonthlyStress from "../components/stressScores/MonthlyStress";
-import Calender from "../components/insights/calender/Calender";
-import CalenderText from "../components/insights/calender/CalenderText";
-import Messages from "../components/insights/Messages";
-import Meetings from "../components/insights/Meetings";
-import DeepWork from "../components/insights/DeepWork";
 
-const Home = ({}) => {
+import axios from "axios";
+import { motion } from "framer-motion";
+import {
+  CalenderStress,
+  CalenderText,
+  DashBoardGreeting,
+  DeepWork,
+  InsightsHeader,
+  Meetings,
+  Messages,
+  MonthlyStress,
+  Navbar,
+  StressScoreButton,
+  WeeklyStress,
+} from "../components/index";
+import {
+  getCurrentMonthStress,
+  getLastMonthStress,
+  getCurrentWeekStress,
+  getSingleUser,
+  getLastWeekStress,
+} from "../Constants/ApiUrls";
+import { getLargestStressDayOfWeek } from "../helpers/Stress/getLargestStressDayofWeek";
+import { getLowestStressDayOfWeek } from "../helpers/Stress/getLowestStressDayOfWeek";
+import { getStressLevel } from "../helpers/Stress/getStressLevel";
+import Chart from "../components/chart/Chart";
+import ChartHeader from "../components/chart/ChartHeader";
+
+const Home = ({
+  user,
+  currentWeekStress,
+  lastWeekStress,
+  lastMonthStress,
+  currentMonthStress,
+}) => {
+  const MotionGridItem = motion(GridItem);
+  const MotionGrid = motion(Grid);
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+  const item = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1 },
+  };
   return (
-    <Grid
+    <MotionGrid
+      variants={container}
+      initial="hidden"
+      animate="show"
       height="100vh"
       templateRows="repeat(20, 1fr)"
       templateColumns="repeat(32, 1fr)"
       gap={10}
     >
-      <GridItem rowSpan={20} colSpan={2} bg="#F7F9FA" shadow="xl">
-        <Navbar />
-      </GridItem>
+      <MotionGridItem rowSpan={20} colSpan={2} bg="#F7F9FA" shadow="xl">
+        <Navbar user={user} />
+      </MotionGridItem>
 
-      <GridItem
+      <MotionGridItem
+        variants={item}
         borderRadius="13px"
         rowSpan={3}
         gridColumnStart={3}
         colSpan={15}
         marginBottom="-10"
       >
-        <DashBoardGreeting />
-      </GridItem>
+        <DashBoardGreeting user={user} />
+      </MotionGridItem>
 
-      <GridItem
+      <MotionGridItem
+        variants={item}
         as={Flex}
         borderRadius="13px"
         rowSpan={3}
@@ -43,9 +85,10 @@ const Home = ({}) => {
         marginBottom="-10"
       >
         <InsightsHeader />
-      </GridItem>
+      </MotionGridItem>
 
-      <GridItem
+      <MotionGridItem
+        variants={item}
         shadow="xl"
         borderRadius="13px"
         gridRowStart={4}
@@ -57,13 +100,20 @@ const Home = ({}) => {
         flexDir="column"
       >
         <Flex flex={1} justifyContent="space-evenly">
-          <WeeklyStress />
-          <MonthlyStress />
+          <WeeklyStress
+            currentWeekStress={() => getStressLevel(currentWeekStress)}
+            lastWeekStress={() => getStressLevel(lastWeekStress)}
+          />
+          <MonthlyStress
+            currentMonthStress={() => getStressLevel(currentMonthStress)}
+            lastMonthStress={() => getStressLevel(lastMonthStress)}
+          />
         </Flex>
         <StressScoreButton />
-      </GridItem>
+      </MotionGridItem>
 
-      <GridItem
+      <MotionGridItem
+        variants={item}
         shadow="xl"
         borderRadius="13px"
         gridRowStart={4}
@@ -75,11 +125,26 @@ const Home = ({}) => {
         flexDir="column"
         justifyContent="space-evenly"
       >
-        <CalenderStress />
-        <CalenderText />
-      </GridItem>
+        <CalenderStress
+          lowestStressIndex={() =>
+            getLowestStressDayOfWeek(currentWeekStress).dateIndex
+          }
+          biggestStressIndex={() =>
+            getLargestStressDayOfWeek(currentWeekStress).dateIndex
+          }
+        />
+        <CalenderText
+          lowestStressDay={() =>
+            getLowestStressDayOfWeek(currentWeekStress).dateDay
+          }
+          biggestStressDay={() =>
+            getLargestStressDayOfWeek(currentWeekStress).dateDay
+          }
+        />
+      </MotionGridItem>
 
-      <GridItem
+      <MotionGridItem
+        variants={item}
         shadow="xl"
         borderRadius="13px"
         gridRowStart={8}
@@ -91,9 +156,10 @@ const Home = ({}) => {
         justifyContent="center"
       >
         <Meetings />
-      </GridItem>
+      </MotionGridItem>
 
-      <GridItem
+      <MotionGridItem
+        variants={item}
         shadow="xl"
         borderRadius="13px"
         gridRowStart={4}
@@ -105,9 +171,10 @@ const Home = ({}) => {
         justifyContent="center"
       >
         <Messages />
-      </GridItem>
+      </MotionGridItem>
 
-      <GridItem
+      <MotionGridItem
+        variants={item}
         shadow="xl"
         borderRadius="13px"
         gridRowStart={8}
@@ -120,9 +187,11 @@ const Home = ({}) => {
         justifyContent="center"
       >
         <DeepWork />
-      </GridItem>
+      </MotionGridItem>
 
-      <GridItem
+      <MotionGridItem
+        as={Flex}
+        variants={item}
         shadow="xl"
         borderRadius="13px"
         gridRowStart={12}
@@ -130,9 +199,51 @@ const Home = ({}) => {
         gridColumnStart={3}
         gridColumnEnd={32}
         bg="#F7F9FA"
-      />
-    </Grid>
+        flexDir="column"
+        margin={-3}
+      >
+        <ChartHeader />
+
+        <Chart data={currentMonthStress} />
+      </MotionGridItem>
+    </MotionGrid>
   );
 };
+
+export async function getServerSideProps() {
+  const fetchUserData = axios.get(getSingleUser);
+  const fetchCurrentWeeksStress = axios.get(getCurrentWeekStress);
+  const fetchLastWeeksStress = axios.get(getLastWeekStress);
+  const fetchLastMonthStress = axios.get(getLastMonthStress);
+  const fetchCurrentMonthStress = axios.get(getCurrentMonthStress);
+
+  const axiosResults = await axios.all([
+    fetchUserData,
+    fetchCurrentWeeksStress,
+    fetchLastWeeksStress,
+    fetchLastMonthStress,
+    fetchCurrentMonthStress,
+  ]);
+
+  const user = axiosResults[0].data;
+
+  const currentWeekStress = axiosResults[1].data;
+
+  const lastWeekStress = axiosResults[2].data;
+
+  const lastMonthStress = axiosResults[3].data;
+
+  const currentMonthStress = axiosResults[4].data;
+
+  return {
+    props: {
+      user,
+      currentWeekStress,
+      lastWeekStress,
+      lastMonthStress,
+      currentMonthStress,
+    },
+  };
+}
 
 export default Home;

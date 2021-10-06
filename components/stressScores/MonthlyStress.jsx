@@ -9,13 +9,15 @@ import {
   StatArrow,
 } from "@chakra-ui/react";
 
-function MonthlyStress() {
+function MonthlyStress({ currentMonthStress, lastMonthStress }) {
+  const stressChange = (currentMonthStress() - lastMonthStress()).toFixed(1);
+  const isStressChangePositive = stressChange > 0;
   return (
     <VStack justifyContent="center" alignSelf="center">
       <Stat>
         <Flex alignItems="center">
           <StatNumber fontSize="5xl" color="#0D5941">
-            3.8
+            {currentMonthStress()}
           </StatNumber>
           <StatNumber marginLeft="1" fontSize="2xl" color="#0D5941">
             /5
@@ -23,7 +25,7 @@ function MonthlyStress() {
         </Flex>
 
         <StatLabel fontSize="1xl" fontWeight="bold" color="#42464A">
-          Your Weekly Stress
+          Your Monthly Stress
         </StatLabel>
         <StatHelpText
           color="black"
@@ -31,8 +33,12 @@ function MonthlyStress() {
           maxWidth="170px"
           textAlign="left"
         >
-          <StatArrow type="increase" color="#0D5941" />
-          +0.3 average stress since last week
+          <StatArrow
+            type={isStressChangePositive ? "increase" : "decrease"}
+            color="#0D5941"
+          />
+          {isStressChangePositive ? "+" : ""}
+          {stressChange} average stress since last month
         </StatHelpText>
       </Stat>
     </VStack>

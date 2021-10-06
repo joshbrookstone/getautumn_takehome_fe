@@ -4,8 +4,9 @@ import { AiFillHome, AiOutlineLock } from "react-icons/ai";
 import { CgStack } from "react-icons/cg";
 import { FaRegBuilding, FaRegHandshake } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
+import { Spinner } from "@chakra-ui/react";
 
-const Navbar = (props) => {
+const Navbar = ({ user }) => {
   return (
     <Flex
       as="nav"
@@ -13,7 +14,6 @@ const Navbar = (props) => {
       flexDir="column"
       height="100%"
       align="center"
-      {...props}
     >
       <Image
         marginTop="80%"
@@ -21,9 +21,7 @@ const Navbar = (props) => {
         boxSize="16"
         objectFit="cover"
         as={NextImage}
-        src={
-          "https://www.epicscotland.com/wp-content/uploads/2019/09/Business-Headshot-Women-006.jpg"
-        }
+        src={user ? user.avatar : <Spinner />}
         alt="Profile Picture"
       ></Image>
       <Icon as={AiFillHome} w={10} h={9} color="#323232" />

@@ -1,16 +1,10 @@
 export const getLowestStressDayOfWeek = (mockStressLevelOfDays) => {
-  const results = {};
-  mockStressLevelOfDays.forEach((singleDay) => {
-    if (results["stress"]) {
-      if (singleDay["stress"] < results["stress"]) {
-        results["day"] = singleDay["day"];
-        results["stress"] = singleDay["stress"];
-      }
-    } else {
-      results["day"] = singleDay["day"];
-      results["stress"] = singleDay["stress"];
-    }
-  });
+  const min = mockStressLevelOfDays.reduce((prev, current) =>
+    prev.stress < current.stress ? prev : current
+  );
+  const date = new Date(min.created_at);
+  const dateIndex = date.getDay();
+  const dateDay = date.toLocaleString("en", { weekday: "long" });
 
-  return results;
+  return { dateIndex, dateDay };
 };
