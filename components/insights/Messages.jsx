@@ -9,13 +9,14 @@ import {
   StatArrow,
 } from "@chakra-ui/react";
 
-function Messages() {
+function Messages({ outOfWorkMessages, outOfWorkMessagesCurrentVsLast }) {
+  console.log(outOfWorkMessagesCurrentVsLast());
   return (
     <VStack justifyContent="center" alignSelf="center">
       <Stat>
         <Flex alignItems="center" justifyContent="center">
           <StatNumber fontSize="3xl" color="#159A6F">
-            77
+            {outOfWorkMessages}
           </StatNumber>
           <StatLabel
             fontWeight="bold"
@@ -40,8 +41,13 @@ function Messages() {
           textAlign="center"
           justifyContent="center"
         >
-          <StatArrow type="increase" color="#159A6F" />
-          56 since last week
+          <StatArrow
+            type={
+              outOfWorkMessagesCurrentVsLast() > 0 ? "increase" : "decrease"
+            }
+            color="#159A6F"
+          />
+          {outOfWorkMessagesCurrentVsLast()} since last week
         </StatHelpText>
       </Stat>
     </VStack>

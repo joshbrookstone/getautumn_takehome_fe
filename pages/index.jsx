@@ -19,9 +19,11 @@ import {
 import {
   getCurrentMonthStress,
   getCurrentWeekMeetings,
+  getCurrentWeekMessages,
   getCurrentWeekStress,
   getLastMonthStress,
   getLastWeekMeetings,
+  getLastWeekMessages,
   getLastWeekStress,
   getSingleUser,
 } from "../Constants/ApiUrls";
@@ -31,6 +33,7 @@ import { getStressLevel } from "../helpers/Stress/getStressLevel";
 import { meetingsCurrentVsLast } from "../helpers/Meetings/meetingsCurrentVsLast";
 import { howManyHoursOfDeepWork } from "../helpers/DeepWork/howManyHoursOfDeepWork";
 import { deepWorkCurrentVsLast } from "../helpers/DeepWork/deepWorkCurrentvsLast";
+import { outOfWorkMessagesCurrentVsLast } from "../helpers/Messages/outOfWorkMessagesCurrentVsLast";
 
 const Home = ({
   user,
@@ -40,6 +43,8 @@ const Home = ({
   currentMonthStress,
   currentWeekMeetings,
   lastWeekMeetings,
+  lastWeekMessages,
+  currentWeekMessages,
 }) => {
   const MotionGridItem = motion(GridItem);
   const MotionGrid = motion(Grid);
@@ -184,7 +189,15 @@ const Home = ({
         as={Flex}
         justifyContent="center"
       >
-        <Messages />
+        <Messages
+          outOfWorkMessages={lastWeekMessages.length}
+          outOfWorkMessagesCurrentVsLast={() =>
+            outOfWorkMessagesCurrentVsLast({
+              lastWeekMessages,
+              currentWeekMessages,
+            })
+          }
+        />
       </MotionGridItem>
 
       <MotionGridItem
@@ -237,6 +250,8 @@ export async function getServerSideProps() {
   const fetchCurrentMonthStress = axios.get(getCurrentMonthStress);
   const fetchCurrentWeekMeetings = axios.get(getCurrentWeekMeetings);
   const fetchLastWeekMeetings = axios.get(getLastWeekMeetings);
+  const fetchCurrentMessages = axios.get(getCurrentWeekMessages);
+  const fetchLastWeekMessages = axios.get(getLastWeekMessages);
 
   const axiosResults = await axios.all([
     fetchUserData,
@@ -246,6 +261,8 @@ export async function getServerSideProps() {
     fetchCurrentMonthStress,
     fetchCurrentWeekMeetings,
     fetchLastWeekMeetings,
+    fetchCurrentMessages,
+    fetchLastWeekMessages,
   ]);
 
   const user = axiosResults[0].data;
@@ -262,6 +279,10 @@ export async function getServerSideProps() {
 
   const lastWeekMeetings = axiosResults[6].data;
 
+  const currentWeekMessages = axiosResults[7].data;
+
+  const lastWeekMessages = axiosResults[8].data;
+
   return {
     props: {
       user,
@@ -271,6 +292,8 @@ export async function getServerSideProps() {
       currentMonthStress,
       currentWeekMeetings,
       lastWeekMeetings,
+      currentWeekMessages,
+      lastWeekMessages,
     },
   };
 }

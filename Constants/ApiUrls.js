@@ -12,3 +12,8 @@ export const getLastWeekMeetings = "http://localhost:3333/mockMeetingsLastWeek";
 
 export const getCurrentWeekMeetings =
   "http://localhost:3333/mockMeetingsThisWeek";
+
+export const getLastWeekMessages = "http://localhost:3333/mockMessagesLastWeek";
+
+export const getCurrentWeekMessages =
+  "http://localhost:3333/mockMessagesCurrentWeek";
